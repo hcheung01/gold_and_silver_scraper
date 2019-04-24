@@ -41,7 +41,6 @@ class Calc_prices():
                 break
             counter += 1
         Calc_prices.final_list = list(Calc_prices.data.values())[start:end + 1]
-        print(Calc_prices.final_list)
         return Calc_prices.final_list
 
     def mean(self):
