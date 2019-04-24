@@ -14,7 +14,7 @@ def request_page(url):
     page = requests.get(url, headers={'User-Agent': 'Candidate'})
     if page.status_code is 200:
         return page
-
+    return None
 
 def get_table_data(request_obj):
     """Get table data from request object"""
@@ -32,8 +32,11 @@ def save_to_csv(table, title):
     with open(title + "_" + str(datetime.now().date()) + ".csv", 'a') as csv_file:
         for arg in table:
             data = arg.find_all('td')
+            # only the first and second element is needed and don't have to worry about different classnames
             todays_date = data[0].text
             todays_price = data[1].text
+
+            # set delimiter to | for future read/compare conflicts since date and prices have commas already
             writer = csv.writer(csv_file, delimiter='|')
             writer.writerow([todays_date, todays_price])
 
@@ -47,11 +50,12 @@ def fetch_data():
     gold_request = request_page(gold_url)
     silver_request = request_page(silver_url)
     if not gold_request or not silver_request:
-        return
+        return None
 
     gold_table = get_table_data(gold_request)
     silver_table = get_table_data(silver_request)
 
+    # check if tables is extracted, if call save method with commodity type 
     if gold_table: 
         save_to_csv(gold_table, 'gold')
     if silver_table:
@@ -59,5 +63,5 @@ def fetch_data():
 
 
 if __name__ == "__main__":
-    # I can expand method to take in url parameters from command line
+    # I can expand method to take in url as parameters from command line
     fetch_data()
