@@ -16,7 +16,9 @@ To run without editing path to python3 in the file:
 
 
 ### get commodity price file
-This program will open previously created CSV files and find mean/variance of user inputted range of dates
+This program will open previously created CSV files and find mean/variance of user inputted range of dates. 
+
+Important: Edge cases is implemented, please try different invalid inputs.
 
 To run if path is same or if you will edit the file:
 `./getCommodityPrice.py startdate enddate gold|silver`
