@@ -11,6 +11,7 @@ import os
 Object-orient way for more modular opproach and Unittesting
 """
 
+
 class Calc_prices():
     data = {}
     final_list = []
@@ -19,7 +20,7 @@ class Calc_prices():
         self.start = start
         self.end = end
         self.type = type + "_" + str(datetime.now().date()) + ".csv"
-       
+
     def open_file(self):
         file = self.type
         with open(file, 'r') as csv_file:
@@ -28,7 +29,6 @@ class Calc_prices():
             for row in csv_data:
                 full_date = str(datetime.strptime(row[0], '%b %d, %Y'))[:10]
                 Calc_prices.data[full_date] = float(row[1].replace(',', ''))
-
             return Calc_prices.data
 
     def slice(self):
@@ -37,9 +37,11 @@ class Calc_prices():
             if key == self.start:
                 start = counter
             if key == self.end:
-                 break
+                end = counter
+                break
             counter += 1
-        Calc_prices.final_list = list(Calc_prices.data.values())[start:]
+        Calc_prices.final_list = list(Calc_prices.data.values())[start:end + 1]
+        print(Calc_prices.final_list)
         return Calc_prices.final_list
 
     def mean(self):
@@ -47,7 +49,6 @@ class Calc_prices():
 
     def variance(self):
         return variance(Calc_prices.final_list)
-    
 
 
 if __name__ == "__main__":

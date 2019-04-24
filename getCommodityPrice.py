@@ -36,7 +36,6 @@ def calc_prices():
                 try:
                     # slice starting date to last index of list which is the price of end date
                     range_list = range_list[start:]
-                    print(range_list)
 
                     # find mean and variance from list of pricing and return formatted tuple
                     print("{} {:.2f} {:.2f}".format(argv[3], mean(range_list), variance(range_list)))
